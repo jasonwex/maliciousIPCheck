@@ -45,9 +45,10 @@ mocklogin.post('/login', async (req, res) => {
     res.status(200).send('Login successful');
   } else {
     if (blockedIP) {
+      //this is really for testing only, probably dont want to say WHY the login failed
       res.status(401).send('IP is potentially malicious');
     } else {
-      res.status(401).send('Invalid username, password, or IP');
+      res.status(401).send('Invalid username, password');
     }
   }
 });

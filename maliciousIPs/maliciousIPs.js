@@ -75,8 +75,6 @@ class RadixList {
   }
 }
 
-
-
 //
 let ipList = new RadixList();
 
@@ -95,16 +93,6 @@ async function fetchBlacklist() {
   const data = await response.json();
   return data;
 }
-
-// fetchBlacklist().then(data => {
-//   console.log('Meta:', data.meta);
-//   data.data.forEach(item => {
-//     console.log(`IP Address: ${item.ipAddress}, Score: ${item.abuseConfidenceScore}, Last Reported: ${item.lastReportedAt}`);
-//   });
-// }).catch(error => {
-//   console.error('Failed to fetch data:', error);
-// });
-
 
 
 const fetchBlacklistMock = async () => {
@@ -129,14 +117,6 @@ const fetchBlacklistMock = async () => {
   return data;
 }
 
-// fetchBlacklistMock().then(data => {
-//   console.log('Meta:', data.meta);
-//   data.data.forEach(item => {
-//     console.log(`IP Address: ${item.ipAddress}, Score: ${item.abuseConfidenceScore}, Last Reported: ${item.lastReportedAt}`);
-//   });
-// }).catch(error => {
-//   console.error('Failed to fetch data:', error);
-// });
 
 // Function to fetch IPs and update the list
 async function updateIPList() {
@@ -154,8 +134,6 @@ async function updateIPList() {
 
     ipList = tempIPList;
 
-    // console.log(`is it blocked ${ipList.search('185.222.209.14')}`);
-    // console.log(`is it blocked ${ipList.search('185.222.209.15')}`);
     console.log('IP List updated successfully.');
   } catch (error) {
     console.error('Failed to update IP List:', error);
