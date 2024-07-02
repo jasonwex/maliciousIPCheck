@@ -13,7 +13,7 @@ class RadixList {
 
   insert(item) {
     let node = this.root;
-    for (let char of item) {
+    for (let char of item.value) {
       if (!node.children[char]) {
         node.children[char] = new RadixListNode();
       }
@@ -63,4 +63,4 @@ class RadixList {
   }
 }
 
-module.exports = RadixList;
+module.exports = { RadixList, RadixListNode };

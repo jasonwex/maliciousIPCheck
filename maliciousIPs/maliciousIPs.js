@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cron = require('node-cron');
-//const fetch = require('node-fetch');
+const { RadixList, RadixListNode } = require('./RadixList'); // Import RadixList and RadixListNode
 
 const maliciousIPs = express();
 const port = 3001;
@@ -10,70 +10,6 @@ const apiURL = '';
 const abuseAPIKey = '939e5ef29451afaaa1d7763b16adeea9947da1031f8a7f66e6757c84d0c870514dc36f0e7faff828';
 const AbuseURL = 'https://api.abuseipdb.com/api/v2/blacklist?confidenceMinimum=90&plaintext=false';
 
-class RadixListNode {
-  constructor(value = null) {
-    this.children = {};
-    this.isEndOfWord = false;
-    this.value = value;  // Store values for prefix compression
-  }
-}
-
-class RadixList {
-  constructor() {
-    this.root = new RadixListNode();
-  }
-
-  insert(item) {
-    let node = this.root;
-    for (let char of item.value) {
-      if (!node.children[char]) {
-        node.children[char] = new RadixListNode();
-      }
-      node = node.children[char];
-    }
-    node.isEndOfWord = true;
-  }
-
-  search(item) {
-    let node = this._findNode(item);
-    return node !== null && node.isEndOfWord;
-  }
-
-  delete(item) {
-    this._delete(this.root, item, 0);
-  }
-
-  _findNode(item) {
-    let node = this.root;
-    for (let char of item) {
-      if (!node.children[char]) {
-        return null;
-      }
-      node = node.children[char];
-    }
-    return node;
-  }
-
-  _delete(node, item, index) {
-    if (index === item.length) {
-      if (!node.isEndOfWord) return false;
-      node.isEndOfWord = false;
-      return Object.keys(node.children).length === 0;
-    }
-
-    const char = item[index];
-    if (!node.children[char]) return false;
-
-    const shouldDeleteChild = this._delete(node.children[char], item, index + 1);
-
-    if (shouldDeleteChild) {
-      delete node.children[char];
-      return Object.keys(node.children).length === 0;
-    }
-
-    return false;
-  }
-}
 
 //
 let ipList = new RadixList();
@@ -93,7 +29,6 @@ async function fetchBlacklist() {
   const data = await response.json();
   return data;
 }
-
 
 const fetchBlacklistMock = async () => {
   data = [
