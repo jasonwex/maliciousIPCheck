@@ -1,3 +1,9 @@
 
 maliciousIPs/.env
 maliciousIPs/.env
+**/node_modules/
+
+.env
+
+.log
+npm-debug.log*
