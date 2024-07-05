@@ -31,6 +31,8 @@ const port = 3001;
 const apiURL = '';
 const rKey = 'aKeyfortheCachedRadixList12123'
 
+
+//you can get your own API key and the url from https://www.abuseipdb.com/account/api specifically this is the blacklist endpoint
 const abuseAPIKey = process.env.abuseAPIKey3;
 const AbuseURL = process.env.abuseURL;
 const isDev = true;
@@ -74,6 +76,7 @@ let ipList = new RadixList();
 //     throw err;
 //   }
 // }
+// <forCaching wip> 
 
 async function fetchBlacklist() {
   try {
