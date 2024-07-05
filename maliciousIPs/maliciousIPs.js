@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cron = require('node-cron');
 const { RadixList, RadixListNode, SerializableRadixList, SerializableRadixListNode } = require('./RadixList'); // Import RadixList and RadixListNode
-const dotenv = require('dotenv');
+const dotenv = require('dotenv'); // to hide my api keys if I make get public, already rotated the old keys
 const redis = require('redis')// we are going to use this to attempt to cache the serializable Raa
 
 dotenv.config();
