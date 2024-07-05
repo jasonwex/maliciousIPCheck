@@ -24,7 +24,7 @@ async function checkIP(ipAddress) {
   try {
     const response = await axios.get(`http://localhost:3001/check-ip?ip=${ipAddress}`);
     console.log('Response:', response.data);
-    return response.data.isPresent;
+    return response.data.isBlocked;
   } catch (error) {
     console.error('Error:', error.response ? error.response.data : error.message);
   }
@@ -53,6 +53,28 @@ mocklogin.post('/login', async (req, res) => {
   }
 });
 
+mocklogin.post('/authenticate', async (req, res) => {
+  const { username, password, ip } = req.body;
+  //check if ip is on the malicious list (once I make it)
+  if (!username || !password || !ip) {
+    return res.status(400).send('Missing username, password or IP');
+  }
+
+  // Access user data directly using the username as a key
+  const userData = users[username];
+  let blockedIP = await checkIP(ip);
+
+  if (userData && userData.password === password && !blockedIP) {
+    res.status(200).send('Login successful');
+  } else {
+    if (blockedIP) {
+      //this is really for testing only, probably dont want to say WHY the login failed
+      res.status(401).send('IP is potentially malicious');
+    } else {
+      res.status(401).send('Invalid username, password');
+    }
+  }
+});
 const PORT = 3000;
 mocklogin.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

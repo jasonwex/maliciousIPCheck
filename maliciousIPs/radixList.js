@@ -1,3 +1,5 @@
+//Radix List and Serializable radix list
+
 class RadixListNode {
   constructor(value = null) {
     this.children = {};
@@ -61,6 +63,80 @@ class RadixList {
 
     return false;
   }
+
+  // I wanted to know how may IPs I was searching through
+  countNodes() {
+    return this._countNodesHelper(this.root);
+  }
+
+  _countNodesHelper(node) {
+    let count = 1; // Count the current node
+    for (let child in node.children) {
+      count += this._countNodesHelper(node.children[child]);
+    }
+    return count;
+  }
+
 }
 
-module.exports = { RadixList, RadixListNode };
+class SerializableRadixListNode extends RadixListNode {
+  constructor(value = null) {
+    super(value);
+  }
+
+  // Convert the node to a plain object
+  toJSON() {
+    const children = {};
+    for (let key in this.children) {
+      children[key] = this.children[key].toJSON();
+    }
+    return {
+      children,
+      isEndOfWord: this.isEndOfWord,
+      value: this.value
+    };
+  }
+
+  // Create a node from a plain object
+  static fromJSON(json) {
+    const node = new SerializableRadixListNode(json.value);
+    node.isEndOfWord = json.isEndOfWord;
+    for (let key in json.children) {
+      node.children[key] = SerializableRadixListNode.fromJSON(json.children[key]);
+    }
+    return node;
+  }
+}
+class SerializableRadixList extends RadixList {
+  constructor() {
+    super();
+    this.root = new SerializableRadixListNode();
+  }
+
+  // Convert the Radix list to a JSON string
+  serialize() {
+    return JSON.stringify(this.root.toJSON());
+  }
+
+  // Create a Radix list from a JSON string
+  static deserialize(jsonString) {
+    const radixList = new SerializableRadixList();
+    const rootNodeJSON = JSON.parse(jsonString);
+    radixList.root = SerializableRadixListNode.fromJSON(rootNodeJSON);
+    return radixList;
+  }
+}
+
+// Example Usage
+const list = new SerializableRadixList();
+list.insert({ value: 'apple' });
+list.insert({ value: 'app' });
+list.insert({ value: 'banana' });
+
+const serializedList = list.serialize();
+console.log(`Serialized List: ${serializedList}`);
+
+const deserializedList = SerializableRadixList.deserialize(serializedList);
+console.log(`Total nodes in deserialized list: ${deserializedList.countNodes()}`);
+
+module.exports = { RadixList, RadixListNode, SerializableRadixList, SerializableRadixListNode };
