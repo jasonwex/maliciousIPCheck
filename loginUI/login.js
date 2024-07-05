@@ -5,7 +5,11 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
   const password = document.getElementById('password').value;
   const ip = document.getElementById('ip').value;
 
-  fetch('http://localhost:3000/login', {
+  const mockLoginURL = 'http://localhost:3000/login';
+  const lessMockedLoginURL = 'http://localhost:3002/login';
+
+
+  fetch(lessMockedLoginURL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

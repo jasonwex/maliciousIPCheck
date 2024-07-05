@@ -6,7 +6,8 @@ const hashPassword = async (plaintextPassword) => {
   return await bcrypt.hash(plaintextPassword, saltRounds);
 };
 
-// Function to initialize users with hashed passwords
+// seeding some Mock test users instead of storing users somewhere more permanant 
+// testing only, should probably use a db
 const initializeUsers = async () => {
   return {
     user1: { password: await hashPassword("pass1") },

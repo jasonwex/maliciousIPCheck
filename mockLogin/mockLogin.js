@@ -32,7 +32,7 @@ async function checkIP(ipAddress) {
 
 mocklogin.post('/login', async (req, res) => {
   const { username, password, ip } = req.body;
-  //check if ip is on the malicious list (once I make it)
+
   if (!username || !password || !ip) {
     return res.status(400).send('Missing username, password or IP');
   }
