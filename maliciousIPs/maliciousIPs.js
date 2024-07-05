@@ -203,9 +203,8 @@ maliciousIPs.get('/check-ip', async (req, res) => {
   if (isDev) { startTime = performance.now(); };
 
   if (!ip) {
-    return res.status(401).send('IP address is required');
+    return res.status(401).send('IP address is required ');
   }
-
 
   const isBlocked = ipList.search(ip); // Check if IP exists in the list
   // <forCaching wip> //const isBlocked = SerializableRadixList.deserialize(ipList).search(ip)
@@ -219,6 +218,7 @@ maliciousIPs.get('/check-ip', async (req, res) => {
 
   res.send({ isBlocked });
 });
+
 
 // Start the server
 maliciousIPs.listen(port, () => {
