@@ -4,9 +4,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "list": "^2.0.19",
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
-    "redis": "^4.6.15"
+    "redis": "^4.6.15",
+    "util": "^0.12.5"
   },
   "name": "maliciousips",
   "version": "1.0.0",
