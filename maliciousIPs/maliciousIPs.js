@@ -168,8 +168,8 @@ const fetchBlacklistMock = async () => {
 async function updateIPList() {
   try {
 
-    //const blacklistedIPs = await fetchBlacklist();
-    const blacklistedIPs = await fetchBlacklistMock();
+    const blacklistedIPs = await fetchBlacklist();
+    //const blacklistedIPs = await fetchBlacklistMock();
 
     // Reset and update the list
     let tempIPList = new RadixList();// Reset the list

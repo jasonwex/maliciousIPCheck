@@ -34,7 +34,7 @@ const logger = createLogger({
   exitOnError: false, // do not exit on handled exceptions
 });
 
-// Create a stream object with a 'write' function that will be used by `morgan`
+
 logger.stream = {
   write: function (message, encoding) {
     logger.info(message);
