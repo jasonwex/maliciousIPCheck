@@ -16,3 +16,5 @@ this is the the test login page essentially - you can "set" the IP address to te
 
 ##### /MockLogin
 You can ignore this, it was my first version at mocking something up so I could test other things. Leaving it here for my own reference for now. 
+
+**TODO LIST** https://trello.com/b/rEw3z41g/learning-to-code-again 
