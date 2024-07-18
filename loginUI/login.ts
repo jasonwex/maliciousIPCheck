@@ -1,12 +1,4 @@
-// document.getElementById('loginForm').addEventListener('submit', function (event) {
-//   event.preventDefault();
 
-//   const username = document.getElementById('username').value;
-//   const password = document.getElementById('password').value;
-//   const ip = document.getElementById('ip').value;
-
-//   const mockLoginURL = 'http://localhost:3000/login';
-//   const lessMockedLoginURL = 'http://localhost:3002/login';
 document.getElementById('loginForm')?.addEventListener('submit', function (event) {
   event.preventDefault();
 
